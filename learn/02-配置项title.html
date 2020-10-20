@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        div {
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1"></div>
+
+    <script>
+        console.log(echarts);
+
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            title: {
+                // 标题id
+                id: 'barTitle',
+                // 是否展示
+                show: true,
+                // 点击跳转链接
+                link: 'http://www.baidu.com',
+                // 链接打开方式 ['blank','self']
+                target: 'self',
+                // 主标题文本
+                text: '当月销售业绩\n清单',
+                // 主标题样式
+                textStyle: {
+                    color: 'gold',
+                    // 字体样式 ['normal', 'italic', 'oblique']，不在这三者之内的字符串，会导致字体变为意外的大小
+                    fontStyle: 'italic',
+                    fontWeight: 'bold',
+                    fontFamily: 'serif',
+                    fontSize: '20',
+                    // 行高指定会导致 \n之后的字消失
+                    // lineHeight: '20'
+                    // width,height, 需要设置rich,
+                    // 文字描边
+                    textBorderColor: 'springgreen',
+                    // 文字描边段度
+                    textBorderWidth: 2,
+                    // 文字阴影
+                    textShadowColor: '#eee',
+                    textShadowBlur: 2,
+                    textShadowOffsetX: 10,
+                    textShadowOffsetY: 10,
+                },
+                // 副标题
+                subtext: '副标题',
+                // 副标题跳转链接
+                sublink: 'http://www.taobao.com',
+                // 子标题打开方式
+                subtarget: 'self',
+                // subtextStyle 同上
+                // 不建议设置对齐方式
+                textAlign: 'left',
+                // 不建议设置对齐方式
+                textVerticalAlign: 'top',
+                // 是否触发事件, false的时候添加事件不会触发
+                triggerEvent: true,
+                // 标题内边距 5 | [5, 10] | [5, 10, 20, 30]
+                padding: [5, 10],
+                // 主副标题间距
+                itemGap: 10,
+                // 不同zlevel会在不同的canvas上绘制，用于性能优化
+                zlevel: 0,
+                // z-index
+                // z: 100,
+                // title 组件离容器左侧的距离， 可以是百分比，数值，关键字（center\left\right）
+                left: 100,
+                // top\right\bottom
+                // 标题组件 背景色
+                backgroundColor: '#ccc',
+                // 标题组件 边框
+                borderColor: 'red',
+                borderWidth: 3,
+                borderRadius: [10, 20],
+                shadowBlur: 10,
+                shadowColor: 'blue',
+                // shadowOffsetX\shadowOffsetY
+            },
+            legend: {
+                data: ['销量']
+            },
+            // x轴数据
+            xAxis: {
+                data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+            },
+            // y轴数据, 必须给，不给报错
+            yAxis: {},
+            // 系列列表
+            series: {
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 19, 24]
+            }
+        });
+    </script>
+</body>
+
+</html>
