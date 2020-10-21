@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <div id="chart2" class="chart"></div>
+    <script>
+        console.log(echarts);
+
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        const chart2 = echarts.init(document.getElementById('chart2'));
+        chart1.setOption({
+            // x轴数据， y轴配置和x轴相同
+            xAxis: {
+                // 是否展示x轴
+                show: true,
+                // gridIndex: 0,
+                // 坐标轴位置 top/bottom
+                position: 'bottom',
+                // 相对于原位置偏移
+                offset: 10,
+                // 轴类型：数值粥 -> vlaue,要求数据为数值
+                // type: 'category',
+                // 刻度的最小值, 类目轴下，min的值为索引
+                // min: 6,
+                // min: 'dataMin',
+                // min: function(value){
+                //     // value {max: dataMax, min: dataMin}
+                //     return value.min -= 2;
+                // },
+                // max: 29,
+                max: 'dataMax',
+                name: '种类',
+                nameLocation: 'center',
+                nameGap: 30,
+                // nameTextStyle: {},
+                nameRotate: 45,
+                // 坐标轴反向
+                inverse: false,
+                // boundaryGap: ['30%', '30%'],
+                splitNumber: 10,
+                // minInterval: 4,
+                // maxInterval,
+                // interval: 2
+                axisLine: {
+                    show: true,
+                    onZero: false,
+                    symbol: ['none', 'arrow'],
+                    symbolSize: 5,
+                    // symbolSize: [10,20],
+                    lineStyle: {
+                        color: 'orange',
+                    }
+                },
+                // 坐标轴刻度相关的设置
+                axisTick: {
+                    show: true,
+                    alignWithLabel: true,
+                    inside: true,
+                    length: 10,
+                    lineStyle: {
+                        type: 'sdash'
+                    }
+                },
+                // 坐标轴刻度标签相关设置
+                axisLabel: {
+                    show: true,
+                    interval: 0,
+                    inside: false,
+                    rotate: -45,
+                    margin: 5,
+                    // formatter: '{value}-好',
+                    formatter: (value, index) => {
+                        console.log(value, index);
+                        return value + '-' + index;
+                    },
+                    color: '#f40',
+                },
+                // 分割线
+                splitLine: {
+                    show: true,
+                    interval: 1,
+                    lineStyle: {
+                        color: 'purple',
+                    }
+                },
+                splitArea: {
+                    show: true,
+                    interval: 0
+                },
+                // 写了data，会变成类目轴type=category
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", {
+                    value: "袜子!!",
+                    textStyle: {
+                        fontSize: 15,
+                    }
+                }],
+                axisPointer: {
+                    show: true,
+                    type: 'shadow',
+                    snap: true,
+                }
+                // minorSplitLine: {
+                //     show: false,
+                // }
+            },
+            
+            // y轴数据, 必须给，不给报错
+            yAxis: {
+                position: 'right'
+            },
+            // 系列列表
+            series: {
+                name: "销量",
+                type: "bar",
+                data: [5, 6, 7, 15, 24, 30],
+                // data: (function () {
+                //     function randomData() {
+                //         now = new Date(+now + oneDay);
+                //         value = value + Math.random() * 21 - 10;
+                //         return {
+                //             name: now.toString(),
+                //             value: [
+                //                 [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+                //                 Math.round(value)
+                //             ]
+                //         };
+                //     }
+
+                //     var data = [];
+                //     var now = +new Date(1997, 9, 3);
+                //     var oneDay = 24 * 3600 * 1000;
+                //     var value = Math.random() * 1000;
+                //     for (var i = 0; i < 6; i++) {
+                //         data.push(randomData());
+                //     }
+                //     return data;
+                // })()
+            
+            }
+        });
+
+        chart2.setOption({
+            // x轴数据， y轴配置和x轴相同
+            xAxis: [
+                {
+                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+                    axisLabel: {
+                        formatter: "{value}_1",
+                        color: '#f40',
+                    }
+                },
+                {
+                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+                    axisLabel: {
+                        formatter: "{value}_2",
+                        color: '#d40',
+                    }
+                },
+                {
+                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+                    axisLabel: {
+                        formatter: "{value}_3",
+                        color: '#a40',
+                    },
+                    offset: -100,
+                    z:100
+                }
+            ],
+            // y轴数据, 必须给，不给报错
+            yAxis: {
+                position: 'right'
+            },
+            // 系列列表
+            series: {
+                name: "销量",
+                type: "bar",
+                data: [5, 6, 7, 15, 24, 30],
+                // data: (function () {
+                //     function randomData() {
+                //         now = new Date(+now + oneDay);
+                //         value = value + Math.random() * 21 - 10;
+                //         return {
+                //             name: now.toString(),
+                //             value: [
+                //                 [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+                //                 Math.round(value)
+                //             ]
+                //         };
+                //     }
+
+                //     var data = [];
+                //     var now = +new Date(1997, 9, 3);
+                //     var oneDay = 24 * 3600 * 1000;
+                //     var value = Math.random() * 1000;
+                //     for (var i = 0; i < 6; i++) {
+                //         data.push(randomData());
+                //     }
+                //     return data;
+                // })()
+            
+            }
+        });
+        
+    </script>
+</body>
+
+</html>
