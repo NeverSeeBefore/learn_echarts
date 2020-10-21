@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <script>
+        function random(max) {
+            return (Math.random() * max).toFixed(3);
+        }
+        function loop(length, cb) {
+            for (let i = 0; i < length; i++) {
+                cb & cb(i);
+            }
+        }
+        const data1 = [], data2 = [], data3 = [];
+        loop(500, () => { data1.push([random(15), random(10), random(1)]) });
+        loop(500, () => { data2.push([random(10), random(10), random(1)]) });
+        loop(500, () => { data3.push([random(15), random(10), random(1)]) });
+
+        const chart1 = echarts.init(document.getElementById('chart1'));
+
+
+        chart1.setOption({
+            animation: false,
+            title: {
+                text: 'dataZoom'
+            },
+            legend: {},
+            xAxis: {},
+            yAxis: {},
+            dataZoom: [
+                {
+                    type: 'inside',
+                    disabled: false,
+                    xAxisIndex: 0,
+                    filterMode: 'filter',
+                    // 默认起始刻度和结束刻度 百分比
+                    start: 0,
+                    end: 100,
+                },
+                {
+                    type: 'inside',
+                    yAxisIndex: 0,
+                    filterMode: 'filter',
+                    start: 20,
+                    end: 50,
+                }
+            ],
+            series: [
+                {
+                    name: '钢铁',
+                    type: 'scatter',
+                    data: data1,
+                    symbolSize: function(val) {
+                        return val[2]*40
+                    }
+                },
+                {
+                    name: '石材',
+                    type: 'scatter',
+                    data: data2,
+                    symbolSize: function(val) {
+                        return val[2]*40
+                    }
+                },
+                {
+                    name: '木头',
+                    type: 'scatter',
+                    data: data3,
+                    symbolSize: function(val) {
+                        return val[2]*40
+                    }
+                }
+            ]
+        });
+
+    </script>
+</body>
+
+</html>

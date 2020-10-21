@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <script>
+        console.log(echarts);
+
+        const chart1 = echarts.init(document.getElementById('chart1'));
+
+
+        chart1.setOption({
+            title: {
+                text: 'radar'
+            },
+            radar: {
+                indicator: [
+                    { name: '得分' },
+                    { name: '篮板' },
+                    { name: '助攻' },
+                    { name: '抢断' },
+                    { name: '盖帽' },
+                    { name: '投篮' },
+                    { name: '三分' },
+                ],
+                center: ['50%', '60%'],
+                radius: '80%',
+                startAngle: 90,
+                name: {
+                    show: true,
+                    formatter: "【{value}】"
+                },
+                splitNumber: 7,
+                shape: 'circle',
+                axisLine: {
+                    lineStyle: {
+                        color: 'gold',
+                    },
+                    // symbol: 'arrow'
+                    symbol: 'none',
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['orange', 'blue', 'green', 'springgreen']
+                    }
+                },
+                splitArea: {
+                    show: true,
+                    areaStyle: {
+                        color: ['red', 'black']
+                    }
+                }
+            },
+            series: {
+                // 雷达坐标系，只能出现雷达图
+                type: 'radar',
+                data: [
+                    {
+                        name: '火箭',
+                        value: [109, 38, 29, 6, 2, 60, 17]
+                    },
+                    {
+                        name: '勇士',
+                        value: [118, 36, 25, 6, 5, 77, 13]
+                    }
+                ]
+            }
+        });
+
+    </script>
+</body>
+
+</html>
