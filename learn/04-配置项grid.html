@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <script>
+        console.log(echarts);
+
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            grid: {
+                // id\
+                show: true,
+                // zlevel\z
+                // left: 100,
+                // top\right\bottom
+                // width: 'auto',
+                // height: 30,
+                // 网格区域是否包含刻度线
+                containLabel: true,
+                backgroundColor: '#eee',
+                borderColor: '#f50'
+            },
+            // x轴数据
+            xAxis: {
+                // data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+                splitLine: { // 坐标轴刻度线
+                    show: false
+                },
+                axisLine: { // 坐标轴轴线
+                    show: true
+                }
+            },
+            // y轴数据, 必须给，不给报错
+            yAxis: {
+                splitLine: { // 坐标轴刻度线
+                    show: false
+                },
+                axisLine: { // 坐标轴轴线
+                    show: true
+                }
+            },
+            // 系列列表
+            series: {
+                name: "销量",
+                type: "bar",
+                data: [5, 20, 36, 10, 19, 24]
+            }
+        });
+
+        // chart2.setOption({
+        //     title: {
+        //         text: '饼图'
+        //     },
+        //     // 系列列表
+        //     series: {
+        //         name: "销量",
+        //         type: "pie",
+        //         // 转换类型，南丁格尔图
+        //         roseType: 'angle',
+        //         data: [
+        //             {
+        //                 value: 5,
+        //                 name: "衬衫"
+        //             },
+        //             {
+        //                 value: 20,
+        //                 name: "羊毛衫"
+        //             },
+        //             {
+        //                 value: 36,
+        //                 name: "雪纺衫"
+        //             },
+        //             {
+        //                 value: 10,
+        //                 name: "裤子"
+        //             },
+        //             {
+        //                 value: 19,
+        //                 name: "高跟鞋"
+        //             },
+        //             {
+        //                 value: 24,
+        //                 name: "袜子"
+        //             }
+        //         ]
+        //     }
+        // });
+
+    </script>
+</body>
+
+</html>
