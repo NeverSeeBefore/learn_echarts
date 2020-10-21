@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <script>
+        function genData(count) {
+            var nameList = [
+                '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
+            ];
+            var legendData = [];
+            var seriesData = [];
+            var selected = {};
+            for (var i = 0; i < count; i++) {
+                name = Math.random() > 0.65
+                    ? makeWord(4, 1) + '·' + makeWord(3, 0)
+                    : makeWord(2, 1);
+                legendData.push(name);
+                seriesData.push({
+                    name: name,
+                    value: Math.round(Math.random() * 100000)
+                });
+                selected[name] = i < 6;
+            }
+
+            return {
+                legendData: legendData,
+                seriesData: seriesData,
+                selected: selected
+            };
+
+            function makeWord(max, min) {
+                var nameLen = Math.ceil(Math.random() * max + min);
+                var name = [];
+                for (var i = 0; i < nameLen; i++) {
+                    name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
+                }
+                return name.join('');
+            }
+        }
+
+    </script>
+    <style>
+        .chart {
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <div id="chart2" class="chart"></div>
+    <script>
+        console.log(echarts);
+
+        const chart1 = echarts.init(
+            // dom
+            document.getElementById('chart1')
+        );
+        const chart2 = echarts.init(document.getElementById('chart2'));
+        chart1.setOption({
+            title: {
+                text: '柱状图'
+            },
+            // 图例legend和序列series是一一对应的
+            legend: {
+                // id
+                // show: true,
+                // zlevel\z\left\top\right\bottom\width\height\prient\align\padding\......
+                // 图例类型 ['plain', 'scroll']
+                type: 'plain',
+                left: 'right',
+                // 图例列表的布局朝向
+                // orient: 'horizontal',
+                orient: 'vertical',
+                // 图例位置
+                align: 'left',
+                padding: 5,
+                itemGap: 20,
+                itemWidth: 30,
+                // itemHeight: 24,
+                // 格式化图例文本 string | Funtion
+                // formatter: "{name} 高吗？",
+                formatter: function (name) {
+                    return 'Legend ' + name;
+                },
+                // 选择模式 true、false、'single'、'mutiple'
+                selectedMode: true,
+                inactiveColor: '#ccc',
+                // 初始状态是否是打开状态
+                selected: {
+                    '今日销量': false,
+                    '明日销量': false,
+                    '昨日销量': true,
+                },
+                // textStyle
+                // textStyle: {
+                //     color: 'red'
+                // }
+                // 默认情况应该给data，要求与series一一对应，如果不给，series中有name也能展示
+                data: [
+                    {
+                        name: '今日销量',
+                        icon: 'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+                    },
+                    {
+                        name: '昨日销量',
+                        icon: 'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z',
+                        textStyle: {
+                            color: 'orange'
+                        }
+                    },
+                    '明日销量'
+                ],
+                backgroundColor: '#eee',
+            },
+            // x轴数据
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            // y轴数据, 必须给，不给报错
+            yAxis: {},
+            // 系列列表
+            series: [{
+                name: "今日销量",
+                type: "bar",
+                data: [5, 20, 36, 10, 19, 24]
+            }, {
+                name: "昨日销量",
+                type: "bar",
+                data: [5, 20, 36, 10, 19, 24]
+            }, {
+                name: "明日销量",
+                type: "bar",
+                data: [5, 20, 36, 10, 19, 24]
+            }]
+        });
+
+        var data = genData(50);
+
+        chart2.setOption({
+            title: {
+                text: '同名数量统计',
+                subtext: '纯属虚构',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                right: 10,
+                top: 20,
+                bottom: 20,
+                data: data.legendData,
+
+                selected: data.selected
+            },
+            series: [
+                {
+                    name: '姓名',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['40%', '50%'],
+                    data: data.seriesData,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>
