@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+
+    <script>
+        var colors = ['#5793f3', '#d14a61', '#675bba'];
+
+        function random(max, min = 0) {
+            return Math.round(Math.random() * max + min);
+        }
+
+        function loop(round, cb) {
+            let i = 0;
+            let res;
+            while (i < round) {
+                i++;
+                res = cb && cb(i, res);
+            }
+            return res;
+        }
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            // toolBox: {
+            //     feature: {
+            //         magicType: {
+            //             type:['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear']
+            //         },
+            //         dataView: {}
+            //     }
+            // },
+            brush: {
+                toolBox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
+                // seriesIndex: [0, 1], // 那些序列可以被选中
+                // 这个到底啥意思，没用出来
+                brushMode: 'single',
+                throttleType: 'debounce',
+                throttleDelay: 1000,
+                // 点击之后移除选框功能，brushMode: 'single',时生效
+                removeOnClick: false,
+            },
+            visualMap: {
+                type: 'continuous',
+                text: ['height', 'low'],
+                inverse: true,
+                min: -2,
+                max: 6,
+                calculable: true,
+                top: '20%',
+                inRange: {
+                    colorLightness: [0.4, 0.8]
+                },
+                outOfRange: {
+                    color: '#bbb'
+                },
+                controller: {
+                    inRange: {
+                        color: '#2f4554'
+                    }
+                }
+            },
+            grid: {
+                left: '20%'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            title: {
+                text: 'brush',
+            },
+            legend: {},
+            xAxis: {
+                name: 'x轴',
+                data: loop(9, (i, arr) => {
+                    arr = arr ? arr : [];
+                    arr.push('Class' + i);
+                    return arr;
+                }),
+            },
+            yAxis: {
+                inverse: true,
+            },
+            series: [
+                {
+                    name: 'bar1',
+                    type: 'bar',
+                    stack: 'one',
+                    data: loop(9, (i, arr) => {
+                        arr = arr ? arr : [];
+                        arr.push((Math.random() * 2).toFixed(2));
+                        return arr;
+                    }),
+                },
+                {
+                    name: 'bar2',
+                    type: 'bar',
+                    stack: 'one',
+                    data: loop(6, (i, arr) => {
+                        arr = arr ? arr : [];
+                        arr.push(-Math.random().toFixed(2));
+                        return arr;
+                    }),
+                },
+                {
+                    name: 'bar3',
+                    type: 'bar',
+                    stack: 'two',
+                    data: loop(6, (i, arr) => {
+                        arr = arr ? arr : [];
+                        arr.push((Math.random() * 5).toFixed(2));
+                        return arr;
+                    }),
+                },
+                {
+                    name: 'bar4',
+                    type: 'bar',
+                    stack: 'two',
+                    data: loop(6, (i, arr) => {
+                        arr = arr ? arr : [];
+                        arr.push((Math.random() + 0.3).toFixed(2));
+                        return arr;
+                    }),
+                }
+            ]
+        });
+        chart1.on('brushselected', function(params) {
+            // console.log(1, arguments);
+            var brushed = [];   // 选中的数据
+            var selected = params.batch[0].selected;    // 选中的所以序列
+
+            for (var i = 0; i < selected.length; i ++) {
+                var dataIndex = selected[i].dataIndex;
+                brushed.push(('[series' + i + ']' + dataIndex.join(', ')));
+            }
+            // console.log(selected);
+            // console.log(brushed);
+            chart1.setOption({
+                title: {
+                    backgroundColor: '#333',
+                    bottom: 0,
+                    right: 0,
+                    width: 100,
+                    text: '选中数据的索引: \n' + brushed.join('\n'),
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 12
+                    }
+                }
+            })
+
+        });
+
+    </script>
+</body>
+
+</html>
