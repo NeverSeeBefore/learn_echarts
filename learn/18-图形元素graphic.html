@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 800px;
+            height: 600px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button class="btn">click</button>
+    </div>
+    <div id="chart1" class="chart"></div>
+    <script src="../js/utils.js"></script>
+    <script>
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            graphic: {
+                elements: [
+                    {
+                        id: 'favicon',
+                        type: 'image',
+                        style: {
+                            width: 100,
+                            height: 100,
+                            image: 'https://echarts-www.cdn.bcebos.com/zh/images/logo.png?_v_=undefined'
+                        },
+                        silent: false,
+                        draggable: true,
+                        // 渐进式渲染，
+                        // progressive: true
+                        // invisible: true, // 相当于visiable: false可以触发事件
+                        // ignore: true, //完全不渲染
+                        // scale: [.5, .5],
+                    },
+                    {
+                        id: 'nihao',
+                        type: 'text',
+                        $action: 'merge',
+                        left: 'center',
+                        // top: 'center',
+                        style: {
+                            text: '你好\n你好',
+                            y:300,
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        shape: {
+                            width: 100,
+                            height: 100,
+                            x: 100,
+                            y: 200,
+                        },
+                        style: {
+                            fill: '#000',
+                            stroke: 'blue',
+                            lineWidth: 5,
+                        }
+                    },
+                    {
+                        type: 'circle',
+                        shape: {
+                            cx: 330,
+                            cy: 250,
+                            r: 50
+                        }
+                    },
+                    {
+                        type: 'ring',
+                        shape: {
+                            cx: 170,
+                            cy: 450,
+                            r: 50,
+                            r0: 30
+                        }
+                    },
+                    {
+                        type: 'sector',
+                        shape: {
+                            cx: 450,
+                            cy: 450,
+                            r: 100,
+                            r0: 50,
+                            startAngle: 0,
+                            endAngle: Math.PI / 180 * 180,
+                            clockwise: false
+                        }
+                    },
+                    {
+                        type: 'arc',
+                        shape: {
+                            cx: 600,
+                            cy: 340,
+                            r: 60,
+                            // r0: 90, // 这个似乎不生效
+                            startAngle: 0,
+                            endAngle: Math.PI / 180 * 180,
+                            clockwise: true
+                        }
+                    },
+                    {
+                        type: 'polygon',
+                        shape: {
+                            points: [[30, 30], [40, 60], [20, 60]],
+                            smooth: .5,
+                            // smooth: 'spline',
+                        },
+                        style: {
+                            fill: '#000',
+                            stroke: 'blue',
+                            lineWidth: 5,
+                        }
+                    },
+                    {
+                        type: 'polyline',
+                        shape: {
+                            points: [[80, 30], [90, 60], [70, 60]],
+                            // smooth: .5,
+                            // smooth: 'spline',
+                        },
+                        style: {
+                            // fill: '#000',
+                            stroke: 'blue',
+                            lineWidth: 1,
+                        }
+                    },
+                    {
+                        type: 'line',
+                        shape: {
+                            x1: 10,
+                            x2: 10,
+                            y1: 10,
+                            y2: 50,
+                        },
+                        style: {
+                            // fill: '#000',
+                            stroke: 'blue',
+                            lineWidth: 5,
+                        }
+                    },
+                    {
+                        type: 'bezierCurve',
+                        shape: {
+                            x1: 10,
+                            y1: 200,
+                            x2: 600,
+                            y2: 200,
+                            cpx1: 100,
+                            cpy1: 700,
+                            cpx2: 300,
+                            cpy2: -100,
+                        },
+                        z: 5,
+                        style: {
+                            // fill: '#000',
+                            stroke: 'springgreen',
+                            lineWidth: 6,
+                        }
+                    },
+                    {
+                        type: 'group',
+                        rotation: Math.PI / 180  * 45,
+                        right: 300,
+                        bottom: 0,
+                        bounding: 'raw',
+                        children: [
+                            {
+                                type: 'rect',
+                                shape: {
+                                    width: 500,
+                                    height: 50,
+                                },
+                                style: {
+                                    fill: 'rgba(0, 0, 0, .3)',
+                                }
+                            },
+                            {
+                                type: 'text',
+                                style: {
+                                    text: 'abcdef',
+                                    fontSize: 20,
+                                },
+                                top: 10,
+                                right: -230
+                            }
+                        ]
+                    }
+                ]
+            },
+            color: ['#8EC9EB'],
+            legend: {
+                data: ["高度(km)与气温(°C)变化关系"]
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: "Temperature : <br/>{b}km : {c}°C"
+            },
+            xAxis: {
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    formatter: "{value} ℃"
+                }
+            },
+            yAxis: {
+                type: 'category',
+                axisLine: { onZero: false },
+                axisLabel: {
+                    formatter: '{value} km'
+                },
+                boundaryGap: true,
+                data: ['0', '10', '20', '30', '40', '50', '60', '70', '80']
+            },
+            series: [
+                {
+                    name: '高度(km)与气温(°C)变化关系',
+                    type: 'bar',
+                    smooth: true,
+                    barCategoryGap: 25,
+                    lineStyle: {
+                        width: 3,
+                        shadowColor: 'rgba(0,0,0,0.4)',
+                        shadowBlur: 10,
+                        shadowOffsetY: 10
+                    },
+                    data: [15, -50, -56.5, -46.5, -22.1, -2.5, -27.7, -55.7, -76.5]
+                }
+            ]
+        })
+
+        const btn = document.getElementsByClassName('btn')[0];
+        btn.onclick = function () {
+            chart1.setOption({
+                graphic: {
+                    elements: [
+                        {
+                            id: 'favicon',
+                            $action: 'merge',
+                            style: {
+                                // x: 100,
+                                // y: 100,
+                                width: 100,
+                                height: 100,
+                                image: 'https://echarts-www.cdn.bcebos.com/zh/images/logo.png?_v_=undefined',
+                            },
+                            // rotation: (Math.PI / 180) * 90,
+                            // origin: [75, 75],
+                            left: 650,
+                            ondrag: function(params) {
+                                console.log('drag', params);
+                            },
+                            // ondrag       鼠标按下并移动
+                            // ondragstart  鼠标按下
+                            // ondragend    鼠标抬起
+                            // ondragenter  别人拖动碰到这个元素时触发
+                            // ondragleave  别人拖动离开这个元素时触发
+                            // 碰撞          鼠标个坐标在图形的范围内，视为碰撞，与拖拽图形本身的边界无关
+                            // ondragover   拖拽碰到这个元素后触发  （可能不会触发）
+                            // ondrop       拖拽的元素在我身上了，并在我身上抬起了鼠标
+                        }
+                    ]
+                },
+            })
+        }
+        chart1.on('click', function(params){
+            console.log(params);
+        })
+
+    </script>
+</body>
+
+</html>
