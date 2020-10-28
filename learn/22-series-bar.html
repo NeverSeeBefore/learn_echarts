@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 700px;
+            height: 350px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <script src="../js/utils.js"></script>
+    <script src="../js/aqi-beijing.js"></script>
+    <script>
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            title: {
+                text: 'bar',
+            },
+            legend: {},
+            tooltip: {
+                trigger: 'axis',
+            },
+            xAxis: {
+                data: ['篮球', '足球', '排球', '网球']
+            },
+            yAxis: {
+                splitLine: {
+                    show: false
+                }
+            },
+            toolbox: {
+                right: '10%',
+                feature: {
+                    magicType: { show: true, type: ['stack', 'tiled'] },
+                }
+            },
+            series: [
+                {
+                    name: '今日销售',
+                    type: 'bar',
+                    coordinateSystem: 'cartesian2d',
+                    data: [10, 20, 30, 40],
+                    // roundCap: true,
+                    legendHoverLink: false,
+                    label: {
+                        show: true,
+                    },
+                    showBackground: true,
+                    stack: 'bar1',
+                    barGap: '-20%',
+                    markPoint: {
+                        data: [
+                            {
+                                name: '最大值',
+                                type: 'max'
+                            },
+                            {
+                                name: '某个坐标',
+                                coord: [10, 20]
+                            }, {
+                                name: '固定 x 像素位置',
+                                yAxis: 10,
+                                x: '90%'
+                            },
+                            {
+                                name: '某个屏幕坐标',
+                                x: 100,
+                                y: 100
+                            }
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {
+                                name: '平均线',
+                                type: 'average'
+                            },
+                            [
+                                {
+                                    x: 100,
+                                    y: 300,
+                                },
+                                {
+                                    x: 300,
+                                    y: 300
+                                }
+                            ],
+                            [
+                                {
+                                    name: '通过coord设置点',
+                                    coord: [0, 20]
+                                },
+                                {
+                                    coord: [3, 20]
+                                }
+                            ],
+                            {
+                                yAxis: 5,
+                            },
+                            {
+                                xAxis: 1,
+                            }
+                        ]
+                    },
+                    markArea: {
+                        data: [
+                            [
+                                {
+                                    yAxis: 30
+                                },
+                                {
+                                    yAxis: 3
+                                }
+                            ]
+                        ]
+                    }
+                },
+                {
+                    name: '昨日销售',
+                    type: 'bar',
+                    data: [20, 30, 40, 50],
+                    stack: 'bar2',
+                },
+                {
+                    name: '前日销售',
+                    type: 'bar',
+                    data: [10, 40, 20, 10],
+                    stack: 'bar2',
+                },
+                {
+                    name: '前前日销售',
+                    type: 'bar',
+                    data: [10, 10, 10, 10],
+                    stack: 'bar3',
+                },
+            ]
+        })
+
+    </script>
+</body>
+
+</html>
