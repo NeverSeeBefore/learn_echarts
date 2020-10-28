@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 500px;
+            height: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <div id="chart2" class="chart"></div>
+    <div id="chart3" class="chart"></div>
+    <div id="chart4" class="chart"></div>
+    <div id="chart5" class="chart"></div>
+    <script src="../js/utils.js"></script>
+    <script>
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            xAxis: {
+                type: 'category',
+                data: ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie']
+            },
+            yAxis: {},
+            legend: {},
+            series: [
+                {
+                    type: 'bar',
+                    name: '2015',
+                    data: [89.3, 92.1, 94.4, 85.4]
+                },
+                {
+                    type: 'bar',
+                    name: '2016',
+                    data: [95.8, 89.4, 91.2, 76.9]
+                },
+                {
+                    type: 'bar',
+                    name: '2017',
+                    data: [97.7, 83.1, 92.5, 78.1]
+                }
+            ]
+        })
+
+        const chart2 = echarts.init(document.getElementById('chart2'));
+        chart2.setOption({
+            legend: {},
+            dataset: {
+                source: [
+                    // 第一列   第二个开始会被解析成x轴的名称
+                    // 第一行   纬度名称, 第二个开始，被解析成系列的名称
+                    ['product', '2015', '2016', '2017'],
+                    // 第二行开始   真正的数据
+                    ['Matcha Latte', 43.3, 85.8, 93.7],
+                    ['Milk Tea', 83.1, 73.4, 55.1],
+                    ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                    ['Walnut Brownie', 72.4, 53.9, 39.1]
+                ],
+                sourceHeader: true, // 第一行是否为纬度名称
+                dimensions: ['product', '2015年', '2016年', '2017年'] //手动设置纬度名称，回复在解析的结果
+                // source: {
+                //     'product': ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie'],
+                //     'count': [823, 235, 1042, 988],
+                //     'score': [95.8, 81.4, 91.2, 76.9]
+                // }
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+            },
+            yAxis: {},
+            series: [
+                {
+                    type: 'bar',
+                },
+                {
+                    type: 'bar',
+                },
+                {
+                    type: 'bar',
+                }
+            ]
+        })
+
+        const chart3 = echarts.init(document.getElementById('chart3'));
+        chart3.setOption({
+            legend: {},
+            dataset: {
+                // 第二种写法
+                // source: [
+                //     {'product': 'Matcha Latte', '2015': 85.8, '2016': 96.8, '2017': 93.8},
+                //     {'product': 'Milk Tea', '2015': 105.8, '2016': 85.8, '2017': 95.8},
+                //     {'product': 'Cheese Cocoa', '2015': 99.8, '2016': 90.8, '2017': 92.8},
+                //     {'product': 'Walnut Brownie', '2015': 95.8, '2016': 95.8, '2017': 95.8}
+                // ],
+                // 第三种写法
+                source: {
+                    'product': ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie'],
+                    '2015': [85.8, 96.8, 93.8, 100.1],
+                    '2016': [85.8, 96.8, 93.8, 99.2],
+                    '2017': [85.8, 96.8, 93.8, 105.8],
+                },
+                sourceHeader: true, // 第一行是否为纬度名称
+                dimensions: ['product', '2015', '2016', '2017'] //手动设置纬度名称，回复在解析的结果
+                // source: {
+                //     'product': ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie'],
+                //     'count': [823, 235, 1042, 988],
+                //     'score': [95.8, 81.4, 91.2, 76.9]
+                // }
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+            },
+            yAxis: {},
+            series: [
+                {
+                    type: 'bar',
+                },
+                {
+                    type: 'bar',
+                },
+                {
+                    type: 'bar',
+                }
+            ]
+        })
+
+        const chart4 = echarts.init(document.getElementById('chart4'));
+        chart4.setOption({
+            legend: {},
+            tooltip: {},
+            dataset: {
+                source: [
+                    // 第一列是纬度名
+                    ['product', '2015', '2016', '2017'],
+                    ['Matcha Latte', 43.3, 85.8, 93.7],
+                    ['Milk Tea', 83.1, 73.4, 55.1],
+                    ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                    ['Walnut Brownie', 72.4, 53.9, 39.1]
+                ],
+                sourceHeader: true,
+            },
+            grid: [
+                { bottom: '55%' },
+                { top: '55%' }
+            ],
+            xAxis: [
+                { type: 'category', gridIndex: 0 },
+                { type: 'category', gridIndex: 1 },
+            ],
+            yAxis: [
+                { gridIndex: 0 },
+                { gridIndex: 1 },
+            ],
+            series: [
+                { type: 'bar', seriesLayoutBy: 'row' },
+                { type: 'bar', seriesLayoutBy: 'row' },
+                { type: 'bar', seriesLayoutBy: 'row' },
+                { type: 'bar', seriesLayoutBy: 'row' },
+
+                { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+                { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+                { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+            ]
+        })
+
+        const chart5 = echarts.init(document.getElementById('chart5'));
+        chart5.setOption({
+            dataset: {
+                source: [
+                    ['score', 'amount', 'product'],
+                    [89.3, 58212, 'Matcha Latte'],
+                    [57.1, 78254, 'Milk Tea'],
+                    [74.4, 41032, 'Cheese Cocoa'],
+                    [50.1, 12755, 'Cheese Brownie'],
+                    [89.7, 20145, 'Matcha Cocoa'],
+                    [68.1, 79146, 'Tea'],
+                    [19.6, 91852, 'Orange Juice'],
+                    [10.6, 101852, 'Lemon Juice'],
+                    [32.7, 20112, 'Walnut Brownie']
+                ]
+            },
+            visualMap: {
+                orient: 'horizontal',
+                left: 'center',
+                min: 10,
+                max: 100,
+                text: ['Height Score', 'Low Score'],
+                dimension: 0,
+                inRangel: {
+                    color: ['#D7DA8B', '#E15457']
+                }
+            },
+            grid: { containLabel: true },
+            xAxis: {},
+            yAxis: { type: 'category' },
+            series: [
+                {
+                    type: 'bar',
+                    encode: {
+                        // Map the "amount" column to X axis.
+                        x: 'amount',
+                        // Map the "product" column to Y axis
+                        y: 'product'
+                    }
+                }
+            ]
+        })
+
+
+    </script>
+</body>
+
+</html>
