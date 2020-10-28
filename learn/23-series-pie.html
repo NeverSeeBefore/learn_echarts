@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 700px;
+            height: 350px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <div id="chart2" class="chart"></div>
+    <script src="../js/utils.js"></script>
+    <script src="../js/aqi-beijing.js"></script>
+    <script>
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            backgroundColor: '#2c343c',
+            title: {
+                text: 'pie',
+                left: 'center',
+                top: 0,
+                textStyle: {
+                    color: '#ccc',
+                    fontSize: 20
+                }
+            },
+            legend: {
+                textStyle: {
+                    color: '#ccc',
+                },
+                top: 20,
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '访问来源<br/>{b}: {c}({d}%)'
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    coordinateSystem: 'pie',
+                    legendHoverLink: true,
+                    hoverAnimation: true,
+                    hoverOffset: 10,
+                    selectedMode: 'single',
+                    clockwise: true,
+                    startAngle: 90,
+                    minAngle: 1,
+                    roseType: 'area',
+                    stillShowZeroSum: true,
+                    left: 'center',
+                    // top: 'center',
+                    label: {
+                        show: true,
+                        // label 展示位置 outside, inside, center
+                        // position: 'inside',
+                    },
+                    labelLine: {
+                        show: true,
+                    },
+                    itemStyle: {
+                        // color: {
+                        //     type: 'linear',
+                        //     x: 0,
+                        //     y: 0,
+                        //     x2: 0,
+                        //     y2: 1,
+                        //     colorStops: [{
+                        //         offset: 0, color: 'red' // 0% 处的颜色
+                        //     }, {
+                        //         offset: 1, color: 'blue' // 100% 处的颜色
+                        //     }],
+                        //     global: false // 缺省为 false
+                        // },
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            color: 'gold'
+                        }
+                    },
+                    data: [{
+                        name: 'Apples',
+                        value: 70,
+                        itemStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'red' // 0% 处的颜色
+                                }, {
+                                    offset: 1, color: 'blue' // 100% 处的颜色
+                                }],
+                                global: false // 缺省为 false
+                            },
+                        }
+                    }, {
+                        name: 'Strawberries',
+                        value: 68
+                    }, {
+                        name: 'Bananas',
+                        value: 48
+                    }, {
+                        name: 'Oranges',
+                        value: 40
+                    }, {
+                        name: 'Pears',
+                        value: 32
+                    }, {
+                        name: 'Pineapples',
+                        value: 27
+                    }, {
+                        name: 'Grapes',
+                        value: 18,
+                    }]
+                },
+            ]
+        })
+
+
+        const chart2 = echarts.init(document.getElementById('chart2'));
+        chart2.setOption({
+            backgroundColor: '#2c343c',
+            title: {
+                text: 'pie',
+                left: 'center',
+                bottom: 0,
+                textStyle: {
+                    color: '#ccc',
+                    fontSize: 20
+                }
+            },
+            legend: {
+                textStyle: {
+                    color: '#ccc',
+                },
+                top: 0,
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '访问来源<br/>{b}: {c}({d}%)'
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    coordinateSystem: 'pie',
+                    hoverOffset: 10,
+                    selectedMode: 'single',
+                    center: ['50%', '50%'],
+                    radius: ['65%', '20%'],
+                    label: {
+                        position: 'inside'
+                    },
+                    data: [{
+                        name: 'Apples',
+                        value: 70,
+                    }, {
+                        name: 'Strawberries',
+                        value: 68
+                    }, {
+                        name: 'Bananas',
+                        value: 48
+                    }, {
+                        name: 'Oranges',
+                        value: 40
+                    }, {
+                        name: 'Pears',
+                        value: 32
+                    }, {
+                        name: 'Pineapples',
+                        value: 27
+                    }, {
+                        name: 'Grapes',
+                        value: 18,
+                    }]
+                },
+
+            ]
+        })
+
+
+
+    </script>
+</body>
+
+</html>
