@@ -6,8 +6,8 @@ function loop(round, cb) {
     let i = 0;
     let res;
     while (i < round) {
-        i++;
         res = cb && cb(i, res);
+        i++;
     }
     return res;
 }
