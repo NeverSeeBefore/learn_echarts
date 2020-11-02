@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 700px;
+            height: 600px;
+            border: 1px solid black;
+            border-style: dotted;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <script src="../js/flare.js"></script>
+    <script>
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            title: {
+                text: 'tree',
+                left: 'center',
+            },
+            series: [
+                {
+                    type: 'tree',
+                    data: [flare],
+                    // 布局方式 orthogonal 正交 ，radial 径向
+                    layout: 'orthogonal',
+                    // layout: 'radial',
+                    orient: 'TB',
+                    symbol: 'dimond',
+                    edgeShape: 'polyline',
+                    edgeForkPosition: '50%',
+                    roam: true,
+                    initialTreeDepth: 1,
+                    itemStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'red' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: 'blue' // 100% 处的颜色
+                            }],
+                            global: false // 缺省为 false
+                        }
+                    },
+                    label: {
+                        show: true,
+                        position: 'bottom',
+                    },
+                    lineStyle: {
+                        color: ['blue', 'red']
+                    },
+                    emphasis: {
+                        label: {
+                            fontSize: 20,
+                        }
+                    },
+                    // 叶子节点特殊配置
+                    leaves: {
+                        label: {
+                            position: 'top',
+                        }
+                    }
+                }
+            ]
+        })
+    </script>
+</body>
+
+</html>
