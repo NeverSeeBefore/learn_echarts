@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../apache-echarts-4.9.0-incubating-src/dist/echarts.js"></script>
+    <style>
+        .chart {
+            width: 700px;
+            height: 600px;
+            border: 1px solid black;
+            border-style: dotted;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart1" class="chart"></div>
+    <script src="../js/ec-option-doc-statistics-201604.js"></script>
+    <script>
+        // EcOptionDocStatistics
+
+        // function convert(source, target, basePath) {
+        //     for (var key in source) {
+        //         var path = basePath ? (basePath + '.' + key) : key;
+        //         if (!key.match(/^\$/)) {
+        //             target.children = target.children || [];
+        //             var child = {
+        //                 name: path
+        //             };
+        //             target.children.push(child);
+        //             convert(source[key], child, path);
+        //         }
+        //     }
+
+        //     if (!target.children) {
+        //         target.value = source.$count || 1;
+        //     }
+        //     else {
+        //         target.children.push({
+        //             name: basePath,
+        //             value: source.$count
+        //         });
+        //     }
+        // }
+
+        function convert(source) {
+            return (function inner(source, target, basePath) {
+                for (var key in source) {
+                    var path = basePath ? basePath + '.' + key : key;
+                    if (key.indexOf('$') === -1) { // 属性名如果不包含$，说明需要创建一个children对象，如果有，说明这时一条真正的数据，没有子节点
+                        target.children = target.children || [];
+                        var child = {
+                            name: path
+                        };
+                        target.children.push(child);
+                        inner(source[key], child, path);
+                    }
+                }
+                if (!target.children) {
+                    target.value = source.$count || 1;
+                } else {
+                    target.children.push({
+                        name: basePath,
+                        value: source.$count || 1
+                    });
+                }
+
+                return target;
+            })(source, [], '')
+        }
+
+        var data = convert(EcOptionDocStatistics);
+        console.log(data);
+        var chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            title: {
+                text: 'tree',
+                left: 'center',
+            },
+            tooltip: {},
+            series: [
+                {
+                    name: 'option',
+                    type: 'treemap',
+                    data: data.children,
+                    squareRatio: 0.5 * (1 + Math.sqrt(5)),
+                    leafDepth: 1, // 显示层级
+                    roam: true,
+                    nodeClick: 'zoomToNode',
+                    levels: [ // 针对每个层级的配置
+                        {
+                            visualDimension: 0,
+                            color: ['red', 'gold', 'blue', 'springgreen', 'yellow', 'gray', 'orange', 'purple', 'pink', 'brown', 'teal'],
+                            // colorAlpha: [0.3, 1],
+                            // colorMappingBy: 'value',
+                            // visibleMin: 10000,
+                            label: {
+                                color: 'gold',
+                            },
+                            upperLabel: {
+                                show: true,
+                                position: 'top'
+                            },
+                            itemStyle: {
+                                borderWidth: 3,
+                                borderColor: '#f40',
+                            }
+                        },
+                        {
+                            colorSaturation: [0.1, .6],
+                            label: {
+                                color: '#000',
+                            },
+                            upperLabel: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        {},
+                        {}
+                    ]
+                }
+            ]
+        })
+    </script>
+</body>
+
+</html>
